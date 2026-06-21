@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CollectionConsumer.Services
+﻿namespace CollectionConsumer.Services
 {
-    internal class IThemeService
+    public interface IThemeService
     {
+        void SetTheme(string themeName);
+        string CurrentTheme { get; }
     }
 }

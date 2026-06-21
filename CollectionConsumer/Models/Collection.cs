@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CollectionConsumer.Models
 {
-    internal class Collection
+    public class Collection
     {
+        public string Name { get; set; } = string.Empty;
+        public string? IconPath { get; set; }
+        public List<Card> Cards { get; set; } = new();
     }
 }

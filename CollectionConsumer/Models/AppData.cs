@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CollectionConsumer.Models
 {
-    internal class AppData
+    public class AppData
     {
+        public List<Collection> Collections { get; set; } = new();
+        public string CurrentTheme { get; set; } = "Light";
     }
 }

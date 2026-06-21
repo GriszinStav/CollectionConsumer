@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CollectionConsumer.Models
 {
-    internal class Card
+    public class Card
     {
+        public string Name { get; set; } = string.Empty;
+        public string Rarity { get; set; } = string.Empty;
+        public decimal? Price { get; set; }
+        public DateTime? AcquisitionDate { get; set; }
+        public string? ImagePath { get; set; }
     }
 }

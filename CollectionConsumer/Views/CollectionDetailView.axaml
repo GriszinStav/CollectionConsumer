@@ -1,9 +1,52 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="CollectionConsumer.CollectionDetailView"
-        Title="CollectionDetailView">
-  Welcome to Avalonia!
-</Window>
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="CollectionConsumer.Views.CollectionDetailView"
+             x:CompileBindings="False">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#F0F0F0">
+            <StackPanel>
+                <TextBlock Text="{Binding SelectedCard.Name}" FontWeight="Bold" />
+                <Image Source="{Binding SelectedCard.ImagePath}" Width="100" Height="100" />
+                <TextBlock Text="{Binding SelectedCard.Rarity}" />
+                <TextBlock Text="{Binding SelectedCard.Price, StringFormat='&#x426;&#x435;&#x43D;&#x430;: {0:C}'}" />
+                <TextBlock Text="{Binding SelectedCard.AcquisitionDate, StringFormat='&#x41F;&#x43E;&#x43B;&#x443;&#x447;&#x435;&#x43D;&#x430;: {0:d}'}" />
+                <Button Command="{Binding PickImageForCardCommand}">&#x412;&#x44B;&#x431;&#x440;&#x430;&#x442;&#x44C; &#x438;&#x437;&#x43E;&#x431;&#x440;&#x430;&#x436;&#x435;&#x43D;&#x438;&#x435;</Button>
+                <Button Command="{Binding RemoveCardCommand}">&#x423;&#x434;&#x430;&#x43B;&#x438;&#x442;&#x44C; &#x43A;&#x430;&#x440;&#x442;&#x443;</Button>
+            </StackPanel>
+        </Border>
+
+        <DockPanel Grid.Column="1">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10">
+                <TextBlock Text="{Binding Collection.Name}" FontSize="20" />
+                <TextBlock Text="{Binding Collection.Cards.Count}" Margin="20,0,0,0" />
+                <Button Command="{Binding AddCardCommand}" Margin="20,0,0,0">&#x2B; &#x414;&#x43E;&#x431;&#x430;&#x432;&#x438;&#x442;&#x44C; &#x43A;&#x430;&#x440;&#x442;&#x43E;&#x447;&#x43A;&#x443;</Button>
+            </StackPanel>
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Cards}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Width="120" Height="160" Margin="5" Background="WhiteSmoke"
+                                    Command="{Binding $parent[ItemsControl].DataContext.SelectCardCommand}"
+                                    CommandParameter="{Binding}">
+                                <StackPanel>
+                                    <Image Source="{Binding ImagePath}" Width="80" Height="80" />
+                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+</UserControl>

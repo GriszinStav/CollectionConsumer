@@ -1,9 +1,33 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="CollectionConsumer.CollectionsView"
-        Title="CollectionsView">
-  Welcome to Avalonia!
-</Window>
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="CollectionConsumer.Views.CollectionsView"
+             x:CompileBindings="False">
+    <DockPanel>
+        <Button DockPanel.Dock="Top" HorizontalAlignment="Right" Command="{Binding AddCollectionCommand}">
+            &#x2B; &#x414;&#x43E;&#x431;&#x430;&#x432;&#x438;&#x442;&#x44C; &#x43A;&#x43E;&#x43B;&#x43B;&#x435;&#x43A;&#x446;&#x438;&#x44E;
+        </Button>
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Collections}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="150" Height="150" Margin="10" CornerRadius="8"
+                                Background="LightGray"
+                                Command="{Binding $parent[ItemsControl].DataContext.OpenCollectionCommand}"
+                                CommandParameter="{Binding}">
+                            <StackPanel>
+                                <Image Source="{Binding IconPath}" Width="64" Height="64" />
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding Cards.Count}" HorizontalAlignment="Center" FontSize="12" />
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

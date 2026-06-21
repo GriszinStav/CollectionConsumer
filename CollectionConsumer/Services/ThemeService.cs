@@ -1,12 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using System;
 
 namespace CollectionConsumer.Services
 {
-    internal class ThemeService
+    public class ThemeService : IThemeService
     {
+        private readonly Application _app;
+        private ResourceDictionary? _currentThemeDict;
+        public string CurrentTheme { get; private set; } = "Light";
+
+        public ThemeService(Application app)
+        {
+            _app = app;
+        }
+
+        public void SetTheme(string themeName)
+        {
+            var uri = new Uri($"avares://CollectionConsumer/Resources/Themes/Theme{themeName}.axaml");
+            var newDict = (ResourceDictionary)AvaloniaXamlLoader.Load(uri);
+
+            if (_currentThemeDict != null)
+                _app.Resources.MergedDictionaries.Remove(_currentThemeDict);
+
+            _app.Resources.MergedDictionaries.Add(newDict);
+            _currentThemeDict = newDict;
+            CurrentTheme = themeName;
+        }
     }
 }

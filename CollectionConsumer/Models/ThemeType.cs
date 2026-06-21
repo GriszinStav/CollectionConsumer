@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CollectionConsumer.Models
+﻿namespace CollectionConsumer.Models
 {
-    internal class ThemeType
+    public enum ThemeType
     {
+        Windows95,
+        Windows11,
+        Dark,
+        Light,
+        Draft,
+        Minecraft
     }
 }

@@ -1,13 +1,12 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-namespace CollectionConsumer;
-
-public partial class CollectionDetailView : Window
+namespace CollectionConsumer.Views
 {
-    public CollectionDetailView()
+    public partial class CollectionDetailView : UserControl
     {
-        InitializeComponent();
+        public CollectionDetailView()
+        {
+            InitializeComponent();
+        }
     }
 }

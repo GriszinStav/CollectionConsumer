@@ -1,12 +1,13 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using CollectionConsumer.Services;
 using CollectionConsumer.ViewModels;
 using CollectionConsumer.Views;
 
 namespace CollectionConsumer
 {
-    public partial class App : Application
+    public class App : Application
     {
         public override void Initialize()
         {
@@ -17,12 +18,14 @@ namespace CollectionConsumer
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
+                var dataService = new DataService();
+                var themeService = new ThemeService(this);
+                var mainWindow = new MainWindow();
+                var filePickerService = new FilePickerService(mainWindow.StorageProvider);
+                var mainVm = new MainWindowViewModel(dataService, themeService, filePickerService);
+                mainWindow.DataContext = mainVm;
+                desktop.MainWindow = mainWindow;
             }
-
             base.OnFrameworkInitializationCompleted();
         }
     }
