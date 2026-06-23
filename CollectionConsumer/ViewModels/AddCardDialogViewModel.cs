@@ -43,8 +43,8 @@ namespace CollectionConsumer.ViewModels
             set => SetProperty(ref _priceText, value);
         }
 
-        private DateTime? _acquisitionDate;
-        public DateTime? AcquisitionDate
+        private DateTimeOffset? _acquisitionDate;
+        public DateTimeOffset? AcquisitionDate
         {
             get => _acquisitionDate;
             set => SetProperty(ref _acquisitionDate, value);
@@ -74,10 +74,7 @@ namespace CollectionConsumer.ViewModels
         private void Ok()
         {
             if (string.IsNullOrWhiteSpace(Name))
-            {
-                // Можно показать сообщение, но для простоты просто не даём закрыть
                 return;
-            }
 
             decimal? price = null;
             if (!string.IsNullOrWhiteSpace(PriceText) && decimal.TryParse(PriceText, out var parsed))
@@ -89,7 +86,7 @@ namespace CollectionConsumer.ViewModels
                 ImagePath = ImagePath,
                 Rarity = Rarity,
                 Price = price,
-                AcquisitionDate = AcquisitionDate
+                AcquisitionDate = AcquisitionDate?.DateTime
             };
             DialogResult?.Invoke(card);
         }
