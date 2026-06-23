@@ -1,4 +1,5 @@
 ﻿using System;
+using Avalonia.Controls;
 using CollectionConsumer.Models;
 using CollectionConsumer.Services;
 
@@ -11,6 +12,8 @@ namespace CollectionConsumer.ViewModels
         private readonly IFilePickerService _filePickerService;
         private AppData _appData;
         private ViewModelBase _currentView;
+
+        public Window OwnerWindow { get; set; } = null!;
 
         public ViewModelBase CurrentView
         {
@@ -43,7 +46,7 @@ namespace CollectionConsumer.ViewModels
 
         private void NavigateToCollections()
         {
-            var vm = new CollectionsViewModel(_appData, _dataService);
+            var vm = new CollectionsViewModel(_appData, _dataService, _filePickerService, this);
             vm.RequestNavigation += NavigateToDetail;
             CurrentView = vm;
         }
@@ -55,7 +58,7 @@ namespace CollectionConsumer.ViewModels
 
         private void NavigateToDetail(Collection collection)
         {
-            CurrentView = new CollectionDetailViewModel(_appData, _dataService, _filePickerService, collection);
+            CurrentView = new CollectionDetailViewModel(_appData, _dataService, _filePickerService, this, collection);
         }
     }
 }

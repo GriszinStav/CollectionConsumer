@@ -1,6 +1,11 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="WindowBackground" Color="White" />
-    <SolidColorBrush x:Key="ButtonBackground" Color="#EEEEEE" />
-    <SolidColorBrush x:Key="BorderColor" Color="Gray" />
+    <SolidColorBrush x:Key="WindowBackground" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="PrimaryColor" Color="#2196F3" />
+    <SolidColorBrush x:Key="PrimaryLight" Color="#4FC3F7" />
+    <SolidColorBrush x:Key="PrimaryDark" Color="#1976D2" />
+    <SolidColorBrush x:Key="TextColor" Color="#212121" />
+    <SolidColorBrush x:Key="SecondaryText" Color="#757575" />
+    <SolidColorBrush x:Key="DividerColor" Color="#BDBDBD" />
 </ResourceDictionary>

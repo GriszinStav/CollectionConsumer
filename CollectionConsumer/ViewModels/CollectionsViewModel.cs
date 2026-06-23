@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CollectionConsumer.Models;
 using CollectionConsumer.Services;
+using CollectionConsumer.Views.Dialogs;
 
 namespace CollectionConsumer.ViewModels
 {
@@ -10,28 +11,46 @@ namespace CollectionConsumer.ViewModels
     {
         private readonly AppData _appData;
         private readonly IDataService _dataService;
+        private readonly IFilePickerService _filePickerService;
+        private readonly MainWindowViewModel _mainWindowViewModel;
 
         public ObservableCollection<Collection> Collections { get; }
 
         public RelayCommand AddCollectionCommand { get; }
         public RelayCommand<Collection> OpenCollectionCommand { get; }
+        public RelayCommand<Collection> DeleteCollectionCommand { get; }
 
         public event Action<Collection>? RequestNavigation;
 
-        public CollectionsViewModel(AppData appData, IDataService dataService)
+        public CollectionsViewModel(AppData appData, IDataService dataService, IFilePickerService filePickerService, MainWindowViewModel mainVm)
         {
             _appData = appData;
             _dataService = dataService;
+            _filePickerService = filePickerService;
+            _mainWindowViewModel = mainVm;
             Collections = new ObservableCollection<Collection>(_appData.Collections);
 
             AddCollectionCommand = new RelayCommand(AddCollection);
             OpenCollectionCommand = new RelayCommand<Collection>(OpenCollection);
+            DeleteCollectionCommand = new RelayCommand<Collection>(DeleteCollection);
         }
 
-        private void AddCollection()
+        private async void AddCollection()
         {
-            var newColl = new Collection { Name = "\u041D\u043E\u0432\u0430\u044F \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F" };
-            Collections.Add(newColl);
+            var vm = new AddCollectionDialogViewModel(_filePickerService);
+            var dialog = new AddCollectionDialog(vm);
+            var result = await dialog.ShowDialog<Collection?>(_mainWindowViewModel.OwnerWindow);
+            if (result != null)
+            {
+                Collections.Add(result);
+                SaveData();
+            }
+        }
+
+        private void DeleteCollection(Collection collection)
+        {
+            if (collection == null) return;
+            Collections.Remove(collection);
             SaveData();
         }
 

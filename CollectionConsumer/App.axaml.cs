@@ -24,6 +24,7 @@ namespace CollectionConsumer
                 var filePickerService = new FilePickerService(mainWindow.StorageProvider);
                 var mainVm = new MainWindowViewModel(dataService, themeService, filePickerService);
                 mainWindow.DataContext = mainVm;
+                mainVm.OwnerWindow = mainWindow;
                 desktop.MainWindow = mainWindow;
             }
             base.OnFrameworkInitializationCompleted();

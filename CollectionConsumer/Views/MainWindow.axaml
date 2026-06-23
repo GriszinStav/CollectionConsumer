@@ -4,11 +4,45 @@
         Title="CollectionConsumer"
         Width="900" Height="600"
         x:CompileBindings="False">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10">
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Style.Animations>
+                <Animation Duration="0:0:0.2">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="1.1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1.1"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </Window.Styles>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.RowSpan="2">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#00C9FF" Offset="0" />
+                    <GradientStop Color="#92FE9D" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,15" Spacing="20">
             <Button Command="{Binding ShowCollectionsCommand}">&#x41C;&#x43E;&#x438; &#x43A;&#x43E;&#x43B;&#x43B;&#x435;&#x43A;&#x446;&#x438;&#x438;</Button>
-            <Button Command="{Binding ShowSettingsCommand}" Margin="10,0,0,0">&#x41D;&#x430;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x43A;&#x438;</Button>
+            <Button Command="{Binding ShowSettingsCommand}">&#x41D;&#x430;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x43A;&#x438;</Button>
         </StackPanel>
-        <ContentControl Content="{Binding CurrentView}" />
-    </DockPanel>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentView}" Margin="20"/>
+    </Grid>
 </Window>
