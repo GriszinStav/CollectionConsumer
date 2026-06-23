@@ -19,7 +19,9 @@ namespace CollectionConsumer.Services
         public void SetTheme(string themeName)
         {
             var uri = new Uri($"avares://CollectionConsumer/Resources/Themes/Theme{themeName}.axaml");
-            var newDict = (ResourceDictionary)AvaloniaXamlLoader.Load(uri);
+            var newDict = AvaloniaXamlLoader.Load(uri) as ResourceDictionary;
+            if (newDict == null)
+                throw new InvalidOperationException($"Не удалось загрузить тему '{themeName}'");
 
             if (_currentThemeDict != null)
                 _app.Resources.MergedDictionaries.Remove(_currentThemeDict);

@@ -1,10 +1,14 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Design.PreviewWith>
-    <Border Padding="20">
-      <!-- Add Controls for Previewer Here -->
-    </Border>
-  </Design.PreviewWith>
-
-  <!-- Add Styles Here -->
-</Styles>
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <LinearGradientBrush x:Key="WindowBackground" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#1a1a2e" Offset="0" />
+        <GradientStop Color="#16213e" Offset="1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="CardBackground" Color="#2D2D30" />
+    <SolidColorBrush x:Key="PrimaryColor" Color="#007ACC" />
+    <SolidColorBrush x:Key="PrimaryDark" Color="#005A9E" />
+    <SolidColorBrush x:Key="PrimaryLight" Color="#60CDFF" />
+    <SolidColorBrush x:Key="TextColor" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="SecondaryText" Color="#AAAAAA" />
+    <SolidColorBrush x:Key="DividerColor" Color="#3D3D3D" />
+</ResourceDictionary>

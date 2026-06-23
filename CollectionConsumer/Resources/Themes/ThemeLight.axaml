@@ -1,10 +1,13 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="WindowBackground" Color="#F5F5F5" />
+    <LinearGradientBrush x:Key="WindowBackground" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#E8F0FE" Offset="0" />
+        <GradientStop Color="#B3D4FC" Offset="1" />
+    </LinearGradientBrush>
     <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF" />
     <SolidColorBrush x:Key="PrimaryColor" Color="#2196F3" />
-    <SolidColorBrush x:Key="PrimaryLight" Color="#4FC3F7" />
     <SolidColorBrush x:Key="PrimaryDark" Color="#1976D2" />
+    <SolidColorBrush x:Key="PrimaryLight" Color="#4FC3F7" />
     <SolidColorBrush x:Key="TextColor" Color="#212121" />
     <SolidColorBrush x:Key="SecondaryText" Color="#757575" />
     <SolidColorBrush x:Key="DividerColor" Color="#BDBDBD" />

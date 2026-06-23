@@ -3,7 +3,9 @@
         x:Class="CollectionConsumer.Views.MainWindow"
         Title="CollectionConsumer"
         Width="900" Height="600"
+        Background="{DynamicResource WindowBackground}"
         x:CompileBindings="False">
+    <!-- Стиль для кнопок меню -->
     <Window.Styles>
         <Style Selector="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -31,14 +33,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Grid.RowSpan="2">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#00C9FF" Offset="0" />
-                    <GradientStop Color="#92FE9D" Offset="1" />
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,15" Spacing="20">
             <Button Command="{Binding ShowCollectionsCommand}">&#x41C;&#x43E;&#x438; &#x43A;&#x43E;&#x43B;&#x43B;&#x435;&#x43A;&#x446;&#x438;&#x438;</Button>
             <Button Command="{Binding ShowSettingsCommand}">&#x41D;&#x430;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x43A;&#x438;</Button>
