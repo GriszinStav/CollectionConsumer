@@ -64,9 +64,16 @@ namespace CollectionConsumer.ViewModels
             SelectedCard = card;
         }
 
-        private void RemoveCard()
+        private async void RemoveCard()
         {
-            if (SelectedCard != null)
+            if (SelectedCard == null) return;
+            if (string.IsNullOrEmpty(SelectedCard.Name))
+                return;
+
+            var vm = new RemoveCardDialogViewModel(SelectedCard.Name);
+            var dialog = new RemoveCardDialog(vm);
+            var result = await dialog.ShowDialog<bool?>(_mainWindowViewModel.OwnerWindow);
+            if (result == true)
             {
                 Cards.Remove(SelectedCard);
                 Collection.Cards = Cards.ToList();

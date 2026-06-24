@@ -47,11 +47,18 @@ namespace CollectionConsumer.ViewModels
             }
         }
 
-        private void DeleteCollection(Collection collection)
+        private async void DeleteCollection(Collection collection)
         {
             if (collection == null) return;
-            Collections.Remove(collection);
-            SaveData();
+
+            var vm = new RemoveCollectionDialogViewModel(collection.Name);
+            var dialog = new RemoveCollectionDialog(vm);
+            var result = await dialog.ShowDialog<bool?>(_mainWindowViewModel.OwnerWindow);
+            if (result == true)
+            {
+                Collections.Remove(collection);
+                SaveData();
+            }
         }
 
         private void OpenCollection(Collection collection)

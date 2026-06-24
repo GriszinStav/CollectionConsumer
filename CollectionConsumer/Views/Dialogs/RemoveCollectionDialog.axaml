@@ -1,24 +1,22 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:conv="clr-namespace:CollectionConsumer.Views.Converters"
-        x:Class="CollectionConsumer.Views.Dialogs.AddCollectionDialog"
-        Title="&#x421;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x43A;&#x43E;&#x43B;&#x43B;&#x435;&#x43A;&#x446;&#x438;&#x44E;"
-        Width="400" Height="280"
+        x:Class="CollectionConsumer.Views.Dialogs.RemoveCollectionDialog"
+        Title="Удаление коллекции"
+        Width="400"
+        Height="180"
         WindowStartupLocation="CenterOwner"
         x:CompileBindings="False">
-	<Window.Resources>
-		<conv:PathToImageConverter x:Key="PathToImage" />
-	</Window.Resources>
 	<Window.Styles>
-		<Style Selector="Button.dialog-ok">
+		<Style Selector="Button.dialog-delete">
 			<Setter Property="Background">
 				<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-					<GradientStop Color="#43A047" Offset="0" />
-					<GradientStop Color="#66BB6A" Offset="1" />
+					<GradientStop Color="#D32F2F" Offset="0" />
+					<GradientStop Color="#E53935" Offset="1" />
 				</LinearGradientBrush>
 			</Setter>
 			<Setter Property="Foreground" Value="White" />
 			<Setter Property="CornerRadius" Value="8" />
+			<Setter Property="FontWeight" Value="Bold" />
 			<Style.Animations>
 				<Animation Duration="0:0:0.15">
 					<KeyFrame Cue="0%">
@@ -35,8 +33,8 @@
 		<Style Selector="Button.dialog-cancel">
 			<Setter Property="Background">
 				<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-					<GradientStop Color="#E53935" Offset="0" />
-					<GradientStop Color="#EF5350" Offset="1" />
+					<GradientStop Color="#757575" Offset="0" />
+					<GradientStop Color="#9E9E9E" Offset="1" />
 				</LinearGradientBrush>
 			</Setter>
 			<Setter Property="Foreground" Value="White" />
@@ -55,19 +53,19 @@
 			</Style.Animations>
 		</Style>
 	</Window.Styles>
-	<StackPanel Margin="20">
-		<TextBlock Text="&#x41D;&#x430;&#x437;&#x432;&#x430;&#x43D;&#x438;&#x435; &#x43A;&#x43E;&#x43B;&#x43B;&#x435;&#x43A;&#x446;&#x438;&#x438;:" />
-		<TextBox Text="{Binding Name}" Margin="0,5,0,15" />
-
-		<Button Command="{Binding ChooseIconCommand}" Margin="0,5">
-			&#x412;&#x44B;&#x431;&#x440;&#x430;&#x442;&#x44C; &#x438;&#x43A;&#x43E;&#x43D;&#x43A;&#x443;
-		</Button>
-		<Image Source="{Binding IconPath, Converter={StaticResource PathToImage}}"
-               Width="64" Height="64" Margin="0,5" />
-
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0" Spacing="10">
-			<Button Command="{Binding OkCommand}" MinWidth="80" Classes="dialog-ok">OK</Button>
-			<Button Command="{Binding CancelCommand}" MinWidth="80" Classes="dialog-cancel">&#x41E;&#x442;&#x43C;&#x435;&#x43D;&#x430;</Button>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Margin="20" VerticalAlignment="Center">
+			<TextBlock FontSize="16" TextWrapping="Wrap"
+                       Text="{Binding Message}"
+                       HorizontalAlignment="Center" />
 		</StackPanel>
-	</StackPanel>
+		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20" Spacing="10">
+			<Button Command="{Binding DeleteCommand}" MinWidth="80" Classes="dialog-delete">Удалить</Button>
+			<Button Command="{Binding CancelCommand}" MinWidth="80" Classes="dialog-cancel">Отмена</Button>
+		</StackPanel>
+	</Grid>
 </Window>
