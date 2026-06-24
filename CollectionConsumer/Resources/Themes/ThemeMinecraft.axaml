@@ -1,14 +1,13 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <LinearGradientBrush x:Key="WindowBackground" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#8B8B8B" Offset="0" />
-        <GradientStop Color="#6B6B6B" Offset="1" />
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="CardBackground" Color="#C6C6C6" />
-    <SolidColorBrush x:Key="PrimaryColor" Color="#7F7F00" />
-    <SolidColorBrush x:Key="PrimaryDark" Color="#555500" />
-    <SolidColorBrush x:Key="PrimaryLight" Color="#BFBF00" />
-    <SolidColorBrush x:Key="TextColor" Color="#404040" />
-    <SolidColorBrush x:Key="SecondaryText" Color="#606060" />
-    <SolidColorBrush x:Key="DividerColor" Color="#A0A0A0" />
+	<ImageBrush x:Key="WindowBackground"
+                Source="avares://CollectionConsumer/Assets/Backgrounds/bg_minecraft.jpg.jpg"
+                Stretch="UniformToFill" />
+	<SolidColorBrush x:Key="CardBackground" Color="#C6C6C6" />
+	<SolidColorBrush x:Key="PrimaryColor" Color="#7F7F00" />
+	<SolidColorBrush x:Key="PrimaryDark" Color="#555500" />
+	<SolidColorBrush x:Key="PrimaryLight" Color="#BFBF00" />
+	<SolidColorBrush x:Key="TextColor" Color="#404040" />
+	<SolidColorBrush x:Key="SecondaryText" Color="#606060" />
+	<SolidColorBrush x:Key="DividerColor" Color="#A0A0A0" />
 </ResourceDictionary>
