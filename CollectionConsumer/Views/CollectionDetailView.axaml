@@ -58,7 +58,28 @@
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="VerticalAlignment" Value="Bottom" />
 			<Setter Property="Margin" Value="0,0,0,55" />
-			<!-- отступ снизу для кнопки -->
+		</Style>
+		<Style Selector="Border.rarity-border">
+			<Setter Property="CornerRadius" Value="16" />
+			<Setter Property="ClipToBounds" Value="True" />
+			<Setter Property="BorderThickness" Value="4" />
+			<Setter Property="BorderBrush" Value="{Binding SelectedCard.Rarity, Converter={StaticResource RarityToColor}}" />
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect Color="{Binding SelectedCard.Rarity, Converter={StaticResource RarityToColor}, ConverterParameter=Shadow}"
+                                      OffsetX="0" OffsetY="0" BlurRadius="15" Opacity="0.6" />
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<!-- Стиль для полоски редкости -->
+		<Style Selector="Border.rarity-stripe">
+			<Setter Property="Height" Value="6" />
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="CornerRadius" Value="12,12,0,0" />
+			<Setter Property="Background" Value="{Binding Rarity, Converter={StaticResource RarityToColor}}" />
+			<Setter Property="ZIndex" Value="1" />
+			<Setter Property="Opacity" Value="0.8" />
 		</Style>
 	</UserControl.Styles>
 	<Grid>
@@ -68,47 +89,46 @@
 		</Grid.ColumnDefinitions>
 
 		<!-- Левая панель -->
-		<Border Grid.Column="0" CornerRadius="16" Margin="5,5,10,5"
-                BoxShadow="0 2 10 rgba(0,0,0,0.08)" ClipToBounds="True">
-			<Grid>
-				<Image Source="{Binding SelectedCard.ImagePath, Converter={StaticResource PathToImage}}"
-                       Stretch="UniformToFill"
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Stretch" />
-				<!-- Текст поверх изображения, с отступом снизу -->
-				<Border Classes="detail-text-overlay">
-					<StackPanel>
-						<TextBlock Text="{Binding SelectedCard.Name}" FontSize="20" FontWeight="Bold"
-                                   Foreground="White" />
-						<TextBlock Text="{Binding SelectedCard.Rarity}" FontSize="15"
-                                   Foreground="#DDDDDD" />
-						<TextBlock Foreground="#DDDDDD" FontSize="14">
-							<TextBlock.Text>
-								<MultiBinding StringFormat="{}Цена: {0:C}">
-									<Binding Path="SelectedCard.Price" />
-								</MultiBinding>
-							</TextBlock.Text>
-						</TextBlock>
-						<TextBlock Foreground="#DDDDDD" FontSize="14">
-							<TextBlock.Text>
-								<MultiBinding StringFormat="{}Получена: {0:d}">
-									<Binding Path="SelectedCard.AcquisitionDate" />
-								</MultiBinding>
-							</TextBlock.Text>
-						</TextBlock>
-					</StackPanel>
-				</Border>
-				<!-- Кнопка удаления внизу, не перекрывает текст -->
-				<Button Command="{Binding RemoveCardCommand}"
-                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                        Background="#E53935" CornerRadius="12"
-                        Padding="16,8" Margin="0,0,0,12"
-                        Classes="detail-action"
-                        FontWeight="Bold"
-                        Height="36">
-					&#x423;&#x434;&#x430;&#x43B;&#x438;&#x442;&#x44C;
-				</Button>
-			</Grid>
+		<Border Grid.Column="0" Classes="rarity-border" Margin="5,5,10,5">
+			<Border CornerRadius="16" BoxShadow="0 2 10 rgba(0,0,0,0.08)" ClipToBounds="True">
+				<Grid>
+					<Image Source="{Binding SelectedCard.ImagePath, Converter={StaticResource PathToImage}}"
+                           Stretch="UniformToFill"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch" />
+					<Border Classes="detail-text-overlay">
+						<StackPanel>
+							<TextBlock Text="{Binding SelectedCard.Name}" FontSize="20" FontWeight="Bold"
+                                       Foreground="White" />
+							<TextBlock Text="{Binding SelectedCard.Rarity}" FontSize="15"
+                                       Foreground="#DDDDDD" />
+							<TextBlock Foreground="#DDDDDD" FontSize="14">
+								<TextBlock.Text>
+									<MultiBinding StringFormat="{}Цена: {0:C}">
+										<Binding Path="SelectedCard.Price" />
+									</MultiBinding>
+								</TextBlock.Text>
+							</TextBlock>
+							<TextBlock Foreground="#DDDDDD" FontSize="14">
+								<TextBlock.Text>
+									<MultiBinding StringFormat="{}Получена: {0:d}">
+										<Binding Path="SelectedCard.AcquisitionDate" />
+									</MultiBinding>
+								</TextBlock.Text>
+							</TextBlock>
+						</StackPanel>
+					</Border>
+					<Button Command="{Binding RemoveCardCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                            Background="#E53935" CornerRadius="12"
+                            Padding="16,8" Margin="0,0,0,12"
+                            Classes="detail-action"
+                            FontWeight="Bold"
+                            Height="36">
+						&#x423;&#x434;&#x430;&#x43B;&#x438;&#x442;&#x44C;
+					</Button>
+				</Grid>
+			</Border>
 		</Border>
 
 		<!-- Правая часть -->
@@ -141,10 +161,14 @@
                                     VerticalContentAlignment="Stretch">
 								<Border Classes="card-item">
 									<Grid>
+										<!-- Изображение -->
 										<Image Source="{Binding ImagePath, Converter={StaticResource PathToImage}}"
                                                Stretch="UniformToFill"
                                                HorizontalAlignment="Stretch"
                                                VerticalAlignment="Stretch" />
+										<!-- Полоска редкости поверх изображения -->
+										<Border Classes="rarity-stripe" />
+										<!-- Текст снизу -->
 										<Border Classes="card-text-overlay">
 											<TextBlock Text="{Binding Name}"
                                                        Foreground="White"
