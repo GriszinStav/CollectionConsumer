@@ -3,98 +3,108 @@
              xmlns:conv="clr-namespace:CollectionConsumer.Views.Converters"
              x:Class="CollectionConsumer.Views.CollectionsView"
              x:CompileBindings="False">
-    <UserControl.Resources>
-        <conv:PathToImageConverter x:Key="PathToImage" />
-    </UserControl.Resources>
-    <UserControl.Styles>
-        <Style Selector="Button.add-button">
-            <Setter Property="Background">
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="#4CAF50" Offset="0" />
-                    <GradientStop Color="#8BC34A" Offset="1" />
-                </LinearGradientBrush>
-            </Setter>
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Padding" Value="16,10" />
-            <Setter Property="CornerRadius" Value="20" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Style.Animations>
-                <Animation Duration="0:0:0.15">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ScaleTransform.ScaleX" Value="1" />
-                        <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleX" Value="1.05" />
-                        <Setter Property="ScaleTransform.ScaleY" Value="1.05" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="Border.collection-card">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="CornerRadius" Value="16" />
-            <Setter Property="BoxShadow" Value="0 4 12 0 rgba(0,0,0,0.15)" />
-            <Style.Animations>
-                <Animation Duration="0:0:0.3">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0" />
-                        <Setter Property="TranslateTransform.Y" Value="20" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1" />
-                        <Setter Property="TranslateTransform.Y" Value="0" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
-    </UserControl.Styles>
-    <DockPanel>
-        <Button DockPanel.Dock="Top" HorizontalAlignment="Right" 
+	<UserControl.Resources>
+		<conv:PathToImageConverter x:Key="PathToImage" />
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="Button.add-button">
+			<Setter Property="Background" Value="{DynamicResource PrimaryColor}" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontWeight" Value="Bold" />
+			<Setter Property="Padding" Value="16,10" />
+			<Setter Property="CornerRadius" Value="20" />
+			<Setter Property="Cursor" Value="Hand" />
+			<Style.Animations>
+				<Animation Duration="0:0:0.15">
+					<KeyFrame Cue="0%">
+						<Setter Property="ScaleTransform.ScaleX" Value="1" />
+						<Setter Property="ScaleTransform.ScaleY" Value="1" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="ScaleTransform.ScaleX" Value="1.05" />
+						<Setter Property="ScaleTransform.ScaleY" Value="1.05" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+		<Style Selector="Border.collection-card">
+			<Setter Property="CornerRadius" Value="16" />
+			<Setter Property="ClipToBounds" Value="True" />
+			<Setter Property="BoxShadow" Value="0 4 12 0 rgba(0,0,0,0.15)" />
+			<Style.Animations>
+				<Animation Duration="0:0:0.3">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="0" />
+						<Setter Property="TranslateTransform.Y" Value="20" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="1" />
+						<Setter Property="TranslateTransform.Y" Value="0" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+		<Style Selector="Border.text-overlay">
+			<Setter Property="Background" Value="#80000000" />
+			<Setter Property="CornerRadius" Value="0,0,16,16" />
+			<Setter Property="Padding" Value="8,6" />
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="VerticalAlignment" Value="Bottom" />
+		</Style>
+	</UserControl.Styles>
+	<DockPanel>
+		<Button DockPanel.Dock="Top" HorizontalAlignment="Right"
                 Command="{Binding AddCollectionCommand}" Classes="add-button">
-            &#x2B; &#x414;&#x43E;&#x431;&#x430;&#x432;&#x438;&#x442;&#x44C; &#x43A;&#x43E;&#x43B;&#x43B;&#x435;&#x43A;&#x446;&#x438;&#x44E;
-        </Button>
-        <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding Collections}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Width="150" Height="150" Margin="10" Classes="collection-card">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Button Grid.RowSpan="2" 
-                                        Command="{Binding $parent[ItemsControl].DataContext.OpenCollectionCommand}" 
-                                        CommandParameter="{Binding}"
-                                        Background="Transparent">
-                                    <StackPanel>
-                                        <Image Source="{Binding IconPath, Converter={StaticResource PathToImage}}" 
-                                               Width="64" Height="64" />
-                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontWeight="SemiBold" />
-                                        <TextBlock Text="{Binding Cards.Count}" HorizontalAlignment="Center" FontSize="12" 
-                                                   Foreground="{DynamicResource SecondaryText}" />
-                                    </StackPanel>
-                                </Button>
-                                <Button Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top"
-                                        Background="Transparent" BorderThickness="0"
-                                        Command="{Binding $parent[ItemsControl].DataContext.DeleteCollectionCommand}"
-                                        CommandParameter="{Binding}"
-                                        Padding="5">
-                                    <TextBlock Text="&#x2716;" Foreground="Red" FontSize="16" />
-                                </Button>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </DockPanel>
+			&#x2B; &#x414;&#x43E;&#x431;&#x430;&#x432;&#x438;&#x442;&#x44C; &#x43A;&#x43E;&#x43B;&#x43B;&#x435;&#x43A;&#x446;&#x438;&#x44E;
+		</Button>
+		<ScrollViewer>
+			<ItemsControl ItemsSource="{Binding Collections}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<!-- Корневой элемент – кнопка для открытия коллекции -->
+						<Button Width="160" Height="180" Margin="10"
+                                Command="{Binding $parent[ItemsControl].DataContext.OpenCollectionCommand}"
+                                CommandParameter="{Binding}"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="0"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch">
+							<Border Classes="collection-card">
+								<Grid>
+									<Image Source="{Binding IconPath, Converter={StaticResource PathToImage}}"
+                                           Stretch="UniformToFill"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Stretch" />
+									<Border Classes="text-overlay">
+										<TextBlock Text="{Binding Name}"
+                                                   FontWeight="SemiBold" FontSize="14"
+                                                   Foreground="White"
+                                                   TextWrapping="Wrap"
+                                                   HorizontalAlignment="Center" />
+									</Border>
+									<!-- Кнопка удаления поверх -->
+									<Button HorizontalAlignment="Right" VerticalAlignment="Top"
+                                            Background="Transparent" BorderThickness="0"
+                                            Command="{Binding $parent[ItemsControl].DataContext.DeleteCollectionCommand}"
+                                            CommandParameter="{Binding}"
+                                            Padding="5"
+                                            ZIndex="10">
+										<Border Background="#80000000" CornerRadius="10" Padding="4">
+											<TextBlock Text="&#x2716;" Foreground="White" FontSize="16" />
+										</Border>
+									</Button>
+								</Grid>
+							</Border>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</DockPanel>
 </UserControl>
